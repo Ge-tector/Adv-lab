@@ -7,7 +7,7 @@ path = "https://raw.githubusercontent.com/Ge-tector/Adv-lab/main/Adv%20lab%201/l
 data = np.genfromtxt(path, delimiter=",", names=True)
 
 millisec = data["Time"]
-V_2 = data["A0"]
+V_2 = data["Analog"]
 
 time = 1000*millisec
 V_in = 5
@@ -23,7 +23,7 @@ D_1 = 6.383091E-08
 
 Rratio = np.divide(R_1, R_25)
 
-T = (A_1 + (B_1*np.log(R_1 / R_25)) + (C_1*(np.log(R_1 / R_25))**2) + (D_1*(np.log(R_1 / R_25))))**(-1)
+T = (A_1 + (B_1*np.log(Rratio)) + (C_1*(np.log(Rratio))**2) + (D_1*(np.log(Rratio))))**(-1)
 
 fig, ax = plt.subplots()
 ax.set_xlim([0, 81]) 
