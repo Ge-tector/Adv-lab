@@ -30,7 +30,7 @@ D_1 = 6.383091E-08
 
 Rratio = np.divide(R_1, R_25)
 
-T = (A_1 + (B_1*np.log(Rratio)) + (C_1*(np.log(Rratio))**2) + (D_1*(np.log(Rratio))))**(-1)
+T = (A_1 + (B_1*np.log(Rratio)) + (C_1*(np.log(Rratio))**2) + (D_1*(np.log(Rratio))**3))**(-1)
 #print(T)
 
 fig, ax = plt.subplots()
