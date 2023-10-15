@@ -10,18 +10,18 @@ data = np.genfromtxt(path, delimiter=",", names=True)
 #print(data.dtype.names)
 
 millisec = data["Time"]
-A0 = data["Voltage"]
-A1 = data["Controller"]
-V_2 = np.divide(A0, 1023) * 5
-V_pot = np.divide(A1, 1023) *5
+A0 = data["Voltage"] #output of thermistor
+A1 = data["Controller"] #output of potentiometer
+V_2 = np.divide(A0, 1023) * 5 #Thermistor output converted into voltage
+V_pot = np.divide(A1, 1023) * 5 #Potentiometer output converted into average voltage of duty cycle
 #print(V_2)
 
 time = millisec/1000
 V_in = 5
-R_2 = 3300
+R_2 = 3300 #resistor value of thermistor voltage divider circuit
 #print(time)
 
-R_1 = np.divide(V_in*R_2,V_2) - R_2
+R_1 = np.divide(V_in*R_2,V_2) - R_2 #this equation can be obtained by using voltage divider equation and solving for R_1
 #print(R_1)
 
 #The following values were obtained from the datasheet
@@ -32,7 +32,7 @@ C_1 = 2.620131E-06
 D_1 = 6.383091E-08
 
 Rratio = np.divide(R_1, R_25)
-T = (A_1 + (B_1*np.log(Rratio)) + (C_1*(np.log(Rratio))**2) + (D_1*(np.log(Rratio))**3))**(-1)
+T = (A_1 + (B_1*np.log(Rratio)) + (C_1*(np.log(Rratio))**2) + (D_1*(np.log(Rratio))**3))**(-1) #Steinhart-Hart equation from thermistor datasheet
 #print(T)
 
 fig, ax = plt.subplots(figsize = [10,5])
