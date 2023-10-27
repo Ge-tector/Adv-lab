@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 from scipy.fft import fft, fftfreq
 from scipy.fft import rfft, rfftfreq
 from scipy.signal import find_peaks
@@ -25,7 +24,6 @@ while i <= 4:
     peak_list_y.append(k)
     i += 1
 
-
 fig, ax = plt.subplots()
 ax.plot(xf, np.abs(yf),color='blue')
 ax.plot(peak_list, np.abs(peak_list_y), 'x', color = "r")
@@ -35,4 +33,6 @@ ax.set_title('Signal graph')
 ax.set_xlim(0,11)
 ax.set_ylim(0,4e5)
 ax.grid()
+for a, b in enumerate(peak_list):
+    ax.annotate(str(b)+'Hz', (peak_list[a] - 0.5, np.abs(peak_list_y[a]) + 7000))
 plt.show()
