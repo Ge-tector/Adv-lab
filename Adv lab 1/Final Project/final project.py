@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-path = "https://raw.githubusercontent.com/cchan011/Adv-lab/main/Adv%20lab%201/Final%20Project/fa23finalproj-lab2data.csv"
+path = "https://raw.githubusercontent.com/cchan011/Adv-lab/main/Adv%20lab%201/Final%20Project/fa23finalproj-lab3data.csv"
 data = np.genfromtxt(path, delimiter=",", names=True)
 
 millisec = data["Time"]
