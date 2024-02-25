@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
+
+\title{Calculating $\pi$ using Monte Carlo integration}
+\author{ChunYin Chan}
+\date{February 4, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    We use Monte Carlo integration with $N = 10^4$ points to measure the value of $\pi$. We find that
+$\pi = 3.1608$. The measured error is 0.6\% which is consistent with general error in Monte Carlo of $N^\frac{1}{2} = 10^{-2} = 0.01 = 1\%$
+\end{abstract}
+
+\section{Measuring $\pi$}
+\begin{figure} [h!]
+    \centering
+    \includegraphics[scale = 0.6]{circle2.png}
+    \caption{$N = 10^4$ random points in the 2D interval $[-1, 1] \times [-1, 1]$. The blue points are inside the unit circle and the red points are outside. The approximate area of the unit circle is the ratio of the blue points to all points $N$}
+    \label{fig:graph}
+\end{figure} 
+\newpage
+Monte Carlo integration uses the fraction of random points inside of a region $\mathcal{D}$ to estimate the integral:
+\begin{equation}
+    \int_\mathcal{D} dV
+\end{equation}
+The area of a circle of diameter $\mathcal{D}$ is 
+\begin{equation*}
+    A = \frac{\pi\mathcal{D}^2}{4}
+\end{equation*}
+If we use the region $\mathcal{D}$ is a unit circle then we can use equation ({\color{red}\ref{fig:graph}}) to find $A$ and solve for $\pi = 4A$ where we have used the fact that $\mathcal{D} = 1$ for the unit circle. We randomly chose $N = 104$ points in the 2D interval $[-1, 1]\times[-1, 1]$. The points inside are show in Figure 1 as blue and the ones outside in red. We measure the number of points inside as $N_I = 7902$. Therefore our estimate of the area is
+\begin{equation}
+    A = \frac{N_I}{N} = \frac{7902}{10000} = 0.7902
+\end{equation}
+From $A$ we find the estimate of $\pi = 4(0.7902) = 3.1608$. A summary of the data is show in table {\color{red}\ref{table:1}}.
+\begin{table}[htb!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \phantom{x} & Inside(Blue) & Outside(Red) & Total \\
+        \hline
+        Count & 7902 & 2098 & 10000 \\
+        \hline
+        Fraction & 0.7902 & 0.2098 & 1.0 \\
+        \hline
+    \end{tabular}
+    \caption{Summary of data}
+    \label{table:1}
+\end{table}
+
+\section{Conclusion}
+Monte Carlo is a good way to measure areas and to calculate $\pi$.
+\section{Matlab code}
+The Matlab code used to generate this data and count the dots can be found here: \href{https://github.com/cchan011/Adv-lab/blob/main/Adv%20lab%202/problem%20set%201/matlab%20code%20pset1}{GitHub}.
+\end{document}
