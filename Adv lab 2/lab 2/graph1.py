@@ -115,12 +115,12 @@ ch1data = cdata0['ch1']
 ch2data = cdata0['ch2']
 ax1 = plt.subplot(gs[0, :2])
 ax2 = ax1.twinx()
-ax1.plot(time, ch1data, color='steelblue')
+ax1.plot(time, ch1data, color='steelblue',label='ch1')
 ax1.set_xlabel('Time (ms)')
 ax1.set_ylabel('Voltage (V)')
 ax1.set_title('Copper rod data 1 graph')
 ax1.grid()
-ax2.plot(time, ch2data, color='red')
+ax2.plot(time, ch2data, color='red',label='ch2')
 ax1.tick_params(axis='y',colors='steelblue')
 ax2.tick_params(axis='y',colors='red')
 
@@ -246,8 +246,8 @@ while b <= 4:
     CopperDeltaT.append((ch1ramp-ch2jump)*1000)
     b += 1
 
-print(np.average(AluminumDeltaT)) #getting average time
-print(np.average(CopperDeltaT))
+print('Aluminum average delta T = '+str(np.average(AluminumDeltaT))) #getting average time
+print('Copper average delta T = '+str(np.average(CopperDeltaT)))
 
 fig3 = plt.figure()
 ax11 = plt.subplot()
