@@ -186,7 +186,8 @@ ax10.tick_params(axis='y',colors='red')
 fig2.legend(loc = 2)
 '''
 below is obtaining delta T using coding
-the idea is to grab both ch2 jump (using normal math comparison) and ch1 ramp up using derivatives
+the idea is to grab both ch2 jump (using normal math comparison) and ch1 ramp up using derivatives, but i couldnt get it to work in time so i'll just stick another limit instead
+both limits are 0.5V
 '''
 AluminumDeltaT = []
 CopperDeltaT = []
@@ -198,54 +199,115 @@ ch1ramp = float()
 a = 0
 while a <= 4:
     x = 0
+    i = 0
     currentdata = adata[a]
     ch2list = currentdata['ch2']
-    while x < len(ch2list):
+    ch1list = currentdata['ch1']
+    timelist = currentdata['time']
+    '''while x < len(ch2list):
         if ch2list[x] > 0.5:
             timelist = currentdata['time']
             ch2jump = timelist[x]
             break
         else:
             x += 1
-    dx = 0.00001
-    dy = diff(currentdata['time'])/dx
+    dy = diff(currentdata['ch1'])
     ch1list = currentdata['ch1']
     while x < len(dy):
-        if dy[x] > 10:
+        if dy[x] > 0.5:
             timelist = currentdata['time']
             ch1ramp = timelist[x] #the n-1 from numpy.diff doesnt matter bc we have large sample size and other than the actual increase, the other time spots dont matter
             break
         else:
+            x += 1'''
+    while x < len(ch2list):
+        if ch2list[x] > 0.5:
+            ch2jump = timelist[x]
+            break
+        else:
             x += 1
+    while x < len(ch1list):
+        if ch1list[x] > 0.5:
+            ch1ramp = timelist[x]
+            #print(ch1ramp)
+            break
+        else:
+            x += 1
+    '''l = []
+    while i < len(currentdata['ch1'])-100:
+        j = currentdata['ch1']
+        h = 0
+        k = []
+        while h <= 10:
+            k.append(j[h+i])
+            h += 1
+        l.append(np.average(k))
+        i += 10
+    #dy = diff(currentdata['ch1'])
+    #ch1list = currentdata['ch1']
+    while x < len(l):
+        if l[x] > 1:
+            timelist = currentdata['time']
+            ch1ramp = timelist[(x*10)+5] #the n-1 from numpy.diff doesnt matter bc we have large sample size and other than the actual increase, the other time spots dont matter
+            break
+        else:
+            x += 1'''
     AluminumDeltaT.append((ch1ramp-ch2jump)*1000)
-    #print(ch1ramp)
-    #print(ch2jump)
+    #print('ch1 '+str(ch1ramp))
+    #print('ch2 '+str(ch2jump))
     a += 1
 b = 0
 while b <= 4:
     x = 0
+    #i = 0
     currentdata = cdata[b]
     ch2list = currentdata['ch2']
-    while x < len(ch2list):
+    ch1list = currentdata['ch1']
+    timelist = currentdata['time']
+    '''while x < len(ch2list):
         if ch2list[x] > 0.5:
             timelist = currentdata['time']
             ch2jump = timelist[x]
             break
         else:
             x += 1
-    dx = 0.00001
-    dy = diff(currentdata['time'])/dx
-    ch1list = currentdata['ch1']
-    while x < len(dy):
-        if dy[x] > 10:
+    l = []
+    while i < len(currentdata['ch1'])-100:
+        j = currentdata['ch1']
+        h = 0
+        k = []
+        while h <= 10:
+            k.append(j[h+i])
+            h += 1
+        l.append(np.average(k))
+        i += 10
+    #dy = diff(currentdata['ch1'])
+    #ch1list = currentdata['ch1']
+    while x < len(l):
+        if l[x] > 1:
             timelist = currentdata['time']
-            ch1ramp = timelist[x] #the n-1 from numpy.diff doesnt matter bc we have large sample size and other than the actual increase, the other time spots dont matter
+            ch1ramp = timelist[(x*10)+5] #the n-1 from numpy.diff doesnt matter bc we have large sample size and other than the actual increase, the other time spots dont matter
+            break
+        else:
+            x += 1'''
+    while x < len(ch2list):
+        if ch2list[x] > 0.5:
+            ch2jump = timelist[x]
+            break
+        else:
+            x += 1
+    while x < len(ch2list):
+        if ch1list[x] > 0.5:
+            ch1ramp = timelist[x]
             break
         else:
             x += 1
     CopperDeltaT.append((ch1ramp-ch2jump)*1000)
+    #print('Copperch1 '+str(ch1ramp))
+    #print('Copperch2 '+str(ch2jump))
     b += 1
-
+#print(AluminumDeltaT)
+#print(CopperDeltaT)
 print('Aluminum average delta T = '+str(np.average(AluminumDeltaT))) #getting average time
 print('Copper average delta T = '+str(np.average(CopperDeltaT)))
 
@@ -255,12 +317,14 @@ ax12 = ax11.twinx()
 ax11.scatter([1,2,3,4,5], AluminumDeltaT, color='steelblue', marker='o', label = 'Aluminum')
 ax12.scatter([1,2,3,4,5], CopperDeltaT, color='red', marker='o', label = 'Copper')
 ax11.set_ylabel('Time difference (ms)')
+ax11.set_ylim(0.25,0.45)
+ax12.set_ylim(0.25,0.45)
 ax11.set_xlabel('Trial number')
 ax11.set_title('Delta T calculated via coding for all 5 trials')
 ax11.tick_params(axis='y',colors='steelblue')
 ax12.tick_params(axis='y',colors='red')
 plt.xticks([int(1),int(2),int(3),int(4),int(5)])
-fig3.legend(loc = 2, bbox_to_anchor = (0,1), bbox_transform=ax11.transAxes)
+fig3.legend(loc = 4, bbox_to_anchor = (1,0), bbox_transform=ax11.transAxes)
 
 
 
