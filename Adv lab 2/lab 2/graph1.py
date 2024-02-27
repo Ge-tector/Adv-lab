@@ -308,7 +308,7 @@ while b <= 4:
     b += 1
 #print(AluminumDeltaT)
 #print(CopperDeltaT)
-print('Aluminum average delta T = '+str(np.average(AluminumDeltaT))) #getting average time
+print('Aluminum average delta T = '+str(np.average(AluminumDeltaT))) #getting average time IN MICROSECONDS
 print('Copper average delta T = '+str(np.average(CopperDeltaT)))
 
 fig3 = plt.figure()
