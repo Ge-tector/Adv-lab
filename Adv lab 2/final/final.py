@@ -53,7 +53,7 @@ Rx = file['Rx']
 Rx.pop(0)
 Ry = file['Ry']
 Ry.pop(0)
-'''
+
 #linear x linear y
 fig = plt.figure(0)
 linear = plt.subplot()
@@ -86,7 +86,7 @@ linear.plot(Qx, QLinRegress.intercept + Yuncertainty + QLinRegress.slope*Qx, lin
 linear.plot(Qx, QLinRegress.intercept - Yuncertainty + QLinRegress.slope*Qx, linestyle = 'dashed', color = 'red')
 
 fig.legend(loc=2)
-'''
+
 
 #linear x and log y
 fig1 = plt.figure(1)
@@ -96,7 +96,7 @@ logRy = np.log(Ry[0:29])
 linlog.plot(Rx[0:29], logRy, 'o', color = 'blue', label = 'Data') #most straightline like for this one
 linlog.set_title('Linear X and Log Y')
 linlog.set_xlabel('Rx')
-linlog.set_ylabel('Ry')
+linlog.set_ylabel('Log(Ry)')
 
 RLinRegress = linregress(Rx[0:29], logRy)
 linlog.plot(Rx, RLinRegress.intercept + RLinRegress.slope*Rx, color = 'red', label = 'Fitted Line')
